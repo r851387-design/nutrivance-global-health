@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin | NutriVance Global Health</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.admin-shell{max-width:1040px;margin:0 auto;padding:35px 20px 80px}.admin-top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.admin-top h1{font-size:36px;margin:8px 0}.admin-panel{background:#f7f6f0;border:1px solid #e5e9df;border-radius:10px;padding:24px;margin-top:24px}.admin-panel h2{font-size:27px;margin-bottom:14px}.admin-form label{display:block;font-size:12px;font-weight:750;margin:14px 0 6px}.admin-form input,.admin-form textarea,.admin-form select{width:100%;padding:12px;border:1px solid #d6ded3;border-radius:5px;background:white;font:inherit}.admin-form textarea{min-height:180px}.admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.admin-btn{border:0;border-radius:5px;padding:11px 16px;font-weight:750;cursor:pointer;background:#174d3a;color:white}.admin-btn.secondary{background:#e5ecdf;color:#174d3a}.admin-btn.danger{background:#8e3434}.admin-btn:disabled{opacity:.5}.admin-status{font-size:13px;margin-top:12px;white-space:pre-wrap}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.admin-list{display:grid;gap:10px}.admin-item{background:#fff;border:1px solid #e0e6dc;padding:14px;border-radius:6px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.admin-item p{margin:5px 0;color:#66746a;font-size:12px}.admin-item-actions{display:flex;gap:6px;flex-wrap:wrap}.admin-item-actions button{font-size:11px;padding:7px 9px}.admin-small{font-size:12px;color:#627066}.admin-hidden{display:none!important}.admin-notice{padding:14px;background:#fff3d8;border-left:4px solid #b78324;font-size:12px;margin-top:15px}.image-preview{max-width:100%;max-height:180px;display:block;margin-top:12px;border-radius:6px}.brandline{display:flex;align-items:center;gap:10px}.brandline .brand-mark{width:39px;height:39px}.admin-header{background:white;border-bottom:1px solid #e8ece5}.admin-header-inner{max-width:1040px;padding:15px 20px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px}.admin-header a{font-weight:750;color:#174d3a}
+@media(max-width:700px){.admin-grid{grid-template-columns:1fr}.admin-panel{padding:17px}.admin-item{display:block}.admin-item-actions{margin-top:10px}.admin-top h1{font-size:30px}}
+</style>
+</head>
+<body>
+<header class="admin-header"><div class="admin-header-inner"><div class="brandline"><span class="brand-mark">N<span>+</span></span><strong>NutriVance <small style="display:block;letter-spacing:2px;font-size:9px">ADMINISTRATOR</small></strong></div><a href="index.html">View public website ↗</a></div></header>
+<main class="admin-shell">
+<div class="admin-top"><div><p class="eyebrow">Content management</p><h1>Website dashboard</h1><p class="admin-small">Manage articles and uploaded images.</p></div><button id="signout" class="admin-btn secondary admin-hidden">Sign out</button></div>
+<div class="admin-notice"><strong>Setup required:</strong> this dashboard becomes functional only after you create a Supabase project, run <code>supabase-setup.sql</code>, and enter your project's URL and publishable/anon key in <code>admin-config.js</code>. Never enter a service-role key here.</div>
+<section id="config-warning" class="admin-panel"><h2>Connect the secure backend</h2><p>Open <code>admin-config.js</code> and replace the two placeholder values with your Supabase Project URL and publishable (anon) key. These are designed for browser use when Row Level Security is correctly configured.</p><p class="admin-small">Admin account allowed by the database policy: nutrivance3@gmail.com</p></section>
+<section id="login-panel" class="admin-panel">
+<h2>Administrator sign in</h2><p class="admin-small">Use the account you authorised in Supabase Authentication.</p>
+<form id="login-form" class="admin-form"><label for="login-email">Email address</label><input id="login-email" type="email" value="nutrivance3@gmail.com" autocomplete="username" required><label for="login-password">Password</label><input id="login-password" type="password" autocomplete="current-password" required><div class="admin-actions"><button class="admin-btn" type="submit">Sign in</button><button class="admin-btn secondary" type="button" id="reset-password">Send password reset</button></div></form><p id="login-status" class="admin-status" aria-live="polite"></p>
+</section>
+<section id="dashboard-panel" class="admin-hidden">
+<div class="admin-grid">
+<div class="admin-panel"><h2 id="editor-title">Create an article</h2><form id="article-form" class="admin-form">
+<input type="hidden" id="article-id">
+<label for="article-title">Article title</label><input id="article-title" maxlength="180" required>
+<label for="article-slug">URL slug</label><input id="article-slug" maxlength="180" placeholder="balanced-plate" required>
+<label for="article-summary">Short summary</label><textarea id="article-summary" rows="3" maxlength="500" required></textarea>
+<label for="article-body">Article content</label><textarea id="article-body" required placeholder="Write your article here. Plain text is supported in this first version."></textarea>
+<label for="article-category">Category</label><select id="article-category"><option>Nutrition</option><option>Public health</option><option>Wellness</option><option>Research</option><option>News</option></select>
+<label for="publish-date">Publication date</label><input id="publish-date" type="datetime-local">
+<label for="article-image">Upload cover image</label><input id="article-image" type="file" accept="image/jpeg,image/png,image/webp,image/gif">
+<p class="admin-small">Use JPG, PNG, WebP or GIF. Large images may take longer to upload. The database storage policy restricts uploads to your authorised account.</p><img id="image-preview" class="image-preview admin-hidden" alt="Selected cover image preview">
+<label><input id="publish-now" type="checkbox" style="width:auto"> Publish when saved (otherwise save as draft)</label>
+<div class="admin-actions"><button class="admin-btn" type="submit">Save article</button><button class="admin-btn secondary" type="button" id="clear-editor">Clear form</button></div><p id="editor-status" class="admin-status" aria-live="polite"></p>
+</form></div>
+<div class="admin-panel"><h2>Your articles</h2><p class="admin-small">Drafts are private to you. Published articles are available to public readers when the public article page is connected to this database.</p><div class="admin-actions"><button class="admin-btn secondary" id="refresh-articles" type="button">Refresh list</button></div><p id="list-status" class="admin-status" aria-live="polite"></p><div id="article-list" class="admin-list"></div></div>
+</div>
+<div class="admin-panel"><h2>Image uploads</h2><p class="admin-small">Images uploaded while editing an article are stored in the NutriVance media bucket. Use the image field above to upload and attach an image to a post.</p><div id="media-list" class="admin-list"></div></div>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin-config.js"></script>
+<script src="admin.js"></script>
+</body></html>

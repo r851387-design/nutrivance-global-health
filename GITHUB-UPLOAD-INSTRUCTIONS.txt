@@ -1,0 +1,28 @@
+NUTRIVANCE GLOBAL HEALTH — GITHUB UPLOAD PACKAGE
+
+This folder contains the website files. It is not live on the internet yet.
+
+EASY WINDOWS UPLOAD STEPS
+1. Download NutriVanceGlobalHealth-GitHub-upload.zip.
+2. Open File Explorer > Downloads.
+3. Right-click the ZIP file and choose Extract All, then click Extract.
+4. Open the newly extracted folder. You should see index.html, about.html,
+   services.html, articles.html, contact.html, admin.html, styles.css, and others.
+5. In your GitHub repository, click Add file > Upload files.
+6. Open the extracted folder on your computer. Select the files INSIDE that
+   folder (Ctrl+A selects everything), then drag them into the GitHub upload page.
+   Do not upload only the ZIP file. Do not upload a second nested folder.
+7. Scroll down, click Commit changes, and confirm.
+8. Then open repository Settings > Pages and choose Deploy from a branch,
+   branch main, folder /(root), then Save.
+
+IMPORTANT
+- index.html must be in the top level of your repository. That means when you
+  first open the repository, you can see index.html without opening another folder.
+- admin-config.js contains the browser-safe Project URL and publishable key.
+  Never add a Supabase secret or service_role key to a website repository.
+- The setup script and administrator dashboard are included. The dashboard must
+  still be tested online after publication. GitHub Pages hosts static files; Supabase
+  provides the database and authentication.
+- Before launch, check all pages and contact details. The custom domain has not been
+  connected or verified.

@@ -1,0 +1,54 @@
+NUTRIVANCE GLOBAL HEALTH — ADMIN DASHBOARD SETUP (PHONE-FRIENDLY)
+==================================================================
+
+What this package adds
+- admin.html: administrator login and content dashboard
+- admin.js: sign-in, create/edit/delete articles, drafts/publishing, publication date, image uploads
+- admin-config.js: browser-safe Supabase URL and publishable/anon key placeholders
+- supabase-setup.sql: database schema and Row Level Security policies
+- ADMIN-SETUP-GUIDE.txt: this guide
+
+SECURITY IMPORTANT
+- Never paste a Supabase service_role/secret key into admin-config.js or any public website file.
+- Do not share your password with anyone.
+- The database SQL restricts article management and media uploads to the JWT email nutrivance3@gmail.com.
+- The website is not ready to publish until Supabase setup is completed and tested.
+- The admin page has noindex metadata, but noindex is NOT security; Supabase authentication and RLS are the actual controls.
+- The image bucket is public-read so uploaded article cover images can appear on the public site; upload, update, listing and delete operations are restricted to the authorised administrator by Storage RLS policies. Do not upload private or sensitive images.
+
+A. CREATE A SUPABASE PROJECT
+1. On your phone open https://supabase.com/ and sign up/sign in.
+2. Create a new project named nutrivance-global-health.
+3. Choose a strong database password and store it securely. Do not send it here.
+4. Wait for the project to finish provisioning.
+5. In the project, open SQL Editor, create a new query, paste all contents of supabase-setup.sql, then Run.
+6. Open Authentication > Users and add/create the user nutrivance3@gmail.com. Set a strong password. If confirmation is required, complete the email confirmation. Configure the project so only this admin user is created; do not enable public sign-up for visitors.
+
+B. GET THE BROWSER-SAFE PROJECT SETTINGS
+1. Open Project Settings > API (the labels may vary slightly).
+2. Copy the Project URL.
+3. Copy the publishable key (or legacy anon/public key). Do NOT copy service_role or secret key.
+4. Edit admin-config.js and replace:
+   YOUR_SUPABASE_PROJECT_URL
+   YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY
+   with those values, keeping quotation marks.
+5. Confirm the admin email remains nutrivance3@gmail.com.
+
+C. UPLOAD FILES TO GITHUB
+1. Open the GitHub repository for the website.
+2. Upload all files from this package to the repository root, including admin.html, admin.js, admin-config.js, supabase-setup.sql, and ADMIN-SETUP-GUIDE.txt.
+3. Keep index.html at the root. Do not upload the ZIP as the only file; extract it and upload the files.
+4. Commit changes.
+
+D. TEST THE DASHBOARD
+1. Open the GitHub Pages site URL followed by /admin.html.
+2. Sign in with nutrivance3@gmail.com and the password you created in Supabase Authentication.
+3. Test creating a draft, editing it, publishing it, unpublishing it and deleting a test article.
+4. Test image upload using a non-sensitive image.
+5. If an error appears, note the exact error text and ask for help; never send passwords or secret keys.
+
+E. DOMAIN AND PUBLIC ARTICLES
+- Domain registration is separate; the preferred domain has not been purchased.
+- This dashboard is a working admin front-end once configured, but the existing public articles page is still static starter content. To show live published articles on the public site, connect articles.html to the Supabase public select query and decide how cover images should be served. The media bucket is configured for public reads of non-sensitive article images; only the authorised administrator can manage uploads.
+- GitHub Pages is static hosting; Supabase provides the backend. Review platform terms and current pricing before relying on any free tier.
+- Do not put medical records or sensitive personal health data in this content system.
